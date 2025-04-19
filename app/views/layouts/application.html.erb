@@ -19,11 +19,15 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>    
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body>
     <main class="container mx-auto mt-28 px-5 flex">
+      <h1 class="text-3xl font-bold text-blue-600 my-8 text-center">
+        Otica Store - Marketplace de Lentes de Contato
+      </h1>
       <%= yield %>
     </main>
   </body>
