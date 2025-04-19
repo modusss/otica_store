@@ -5,6 +5,9 @@ source "https://rubygems.org"
 gem 'devise'
 gem 'pundit'
 
+gem 'tailwindcss-rails'   # gerencia Tailwind via Rails
+gem 'hotwire-rails'       # inclui turbo-rails e stimulus-rails
+
 # E‑commerce
 gem 'stripe'
 gem 'friendly_id'
