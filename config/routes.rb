@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "home/index"
   resources :products, only: %i[index show]
   resources :carts,    only: %i[show update]
   resources :line_items, only: %i[create update destroy]
