@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  resources :order_items
-  resources :orders
-  resources :line_items
-  resources :carts
-  resources :products
+  resources :products, only: %i[index show]
+  resources :carts,    only: %i[show update]
+  resources :line_items, only: %i[create update destroy]
+  resources :orders,   only: %i[index show create]
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
