@@ -4,7 +4,7 @@ class CreateProducts < ActiveRecord::Migration[8.0]
       t.string :name
       t.text :description
       t.decimal :price
-      t.integer :stock
+      t.integer :stock, default: 0
       t.string :sku
       t.string :slug
 
