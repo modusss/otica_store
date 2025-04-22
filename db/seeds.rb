@@ -107,4 +107,4 @@ puts "   → #{count_toric} variantes criadas"
 
 puts "\n=== Seed completo! ==="
 puts "Login:  user@example.com"
-puts "Senha:  password"
+puts "Senha:  password"AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

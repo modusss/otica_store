@@ -16,6 +16,8 @@ class Product < ApplicationRecord
     has_many :categorizations, dependent: :destroy
     has_many :categories, through: :categorizations
 
+    accepts_nested_attributes_for :product_variants, allow_destroy: true
+
     # Validações existentes
     validates :name, presence: true
     validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }

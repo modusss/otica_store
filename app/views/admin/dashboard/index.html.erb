@@ -1,0 +1,9 @@
+<h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+<ul class="grid grid-cols-2 gap-4">
+  <% @stats.each do |k,v| %>
+    <li class="border p-4 rounded">
+      <span class="block text-gray-500"><%= k.to_s.humanize %></span>
+      <span class="text-xl font-semibold"><%= v %></span>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin – Ótica</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="min-h-screen flex">
+    <aside class="w-48 bg-gray-100 p-4">
+      <h2 class="font-bold mb-4">Admin</h2>
+      <%= link_to "Dashboard", admin_root_path, class: "block mb-2" %>
+      <%= link_to "Produtos",  admin_products_path, class: "block mb-2" %>
+      <%= link_to "Pedidos",   admin_orders_path,   class: "block mb-2" %>
+    </aside>
+
+    <main class="flex-1 p-6">
+      <%= yield %>
+    </main>
+  </body>
+</html>

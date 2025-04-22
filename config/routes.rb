@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  root "pages#home"
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  # config/routes.rb
+  namespace :admin do
+    resources :products
+    resources :product_variants, only: %i[create update destroy]
+    resources :orders, only: %i[index show update]
+    # …outros (brands, categories, users)
+  end
   devise_for :users
   namespace :webhooks do
     post :stripe,     to: "stripe#create"
@@ -17,8 +28,6 @@ Rails.application.routes.draw do
   end
   resource  :cart,       only: :show          # singular – um carrinho por usuário
   resources :line_items, only: %i[create update destroy]
-
-  root "pages#home"
 
   get "/about",   to: "pages#about"
   get "/faq",     to: "pages#faq"

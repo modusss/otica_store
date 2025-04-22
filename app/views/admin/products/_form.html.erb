@@ -1,0 +1,22 @@
+<%= form_with model: [:admin, @product] do |f| %>
+  <div class="grid grid-cols-2 gap-4">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "border p-2" %>
+
+    <%= f.label :price %>
+    <%= f.number_field :price, step: 0.01, class: "border p-2" %>
+
+    <%= f.label :lens_type %>
+    <%= f.select :lens_type, Product.lens_types.keys, {}, class: "border p-2" %>
+  </div>
+
+  <h2 class="mt-6 font-semibold">Primeira variante</h2>
+  <%= f.fields_for :product_variants do |pv| %>
+    <%= pv.label :sphere %>
+    <%= pv.number_field :sphere, step: 0.25, class: "border p-2" %>
+    <%= pv.label :stock %>
+    <%= pv.number_field :stock, class: "border p-2" %>
+  <% end %>
+
+  <%= f.submit class: "mt-4 bg-primary text-white px-4 py-2 rounded" %>
+<% end %>
