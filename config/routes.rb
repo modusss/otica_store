@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource  :profile,  only: :show
+  resources :addresses, except: :show
   resources :orders, only: %i[index show]
   namespace :checkout do
     resources :addresses, only: %i[new create]
