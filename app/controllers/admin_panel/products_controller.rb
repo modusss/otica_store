@@ -2,7 +2,7 @@ class AdminPanel::ProductsController < AdminPanel::BaseController
   before_action :set_product, only: %i[edit update destroy]
 
   def index
-    @products = Product.order(:name).includes(:brand)
+    @products = Product.order(:name).includes(:brand, :product_variants)
   end
 
   def new
@@ -28,7 +28,6 @@ class AdminPanel::ProductsController < AdminPanel::BaseController
     if @product.update(product_params)
       redirect_to panel_products_path, notice: "Atualizado."
     else
-      @product.product_variants.build if @product.product_variants.empty?
       render :edit, status: :unprocessable_entity
     end
   end
@@ -41,7 +40,7 @@ class AdminPanel::ProductsController < AdminPanel::BaseController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
   end
 
   def product_params
@@ -49,8 +48,8 @@ class AdminPanel::ProductsController < AdminPanel::BaseController
       :name, :description, :price, :brand_id,
       :lens_type, :wear_schedule, :pack_quantity,
       product_variants_attributes: %i[id sphere cylinder axis
-                                      base_curve diameter stock
-                                      unit_price sku _destroy]
+                                    base_curve diameter stock
+                                    unit_price sku _destroy]
     )
   end
 end
