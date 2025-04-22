@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
+
   root "pages#home"
 
   get "/about",   to: "pages#about"
   get "/faq",     to: "pages#faq"
   get "/contact", to: "pages#contact"
-  
+
   resources :products, only: %i[index show]
-  resources :carts,    only: %i[show update]
-  resources :line_items, only: %i[create update destroy]
-  resources :orders,   only: %i[index show create]
-  devise_for :users
+  resources :categories, only: :show
+  resources :brands,     only: :show
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

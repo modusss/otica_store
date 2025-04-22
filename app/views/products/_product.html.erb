@@ -1,0 +1,5 @@
+<div class="border p-4 rounded">
+  <h2 class="font-medium"><%= product.name %></h2>
+  <p><%= number_to_currency product.price %></p>
+  <%= link_to "Detalhes", product_path(product), class: "text-primary" %>
+</div>
