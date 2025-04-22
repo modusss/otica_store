@@ -1,0 +1,8 @@
+<% cart.line_items.each do |li| %>
+  <div class="flex justify-between border-b py-2">
+    <span><%= li.product_variant.sku %></span>
+    <span><%= number_to_currency(li.unit_price) %> × <%= li.quantity %></span>
+    <%= button_to "Remover", line_item_path(li), method: :delete, form: { data: { turbo_stream: true } } %>
+  </div>
+<% end %>
+<p class="text-right font-bold mt-4">Total: <%= number_to_currency cart.line_items.sum { _1.unit_price * _1.quantity } %></p>
