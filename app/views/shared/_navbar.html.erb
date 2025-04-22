@@ -6,6 +6,9 @@
       <%= link_to "Produtos", products_path, class: "text-gray-700 hover:text-blue-700 font-medium transition-colors" %>
       <% if user_signed_in? %>
         <%= link_to "Meus pedidos", orders_path, class: "text-gray-700 hover:text-blue-700 font-medium transition-colors" %>
+        <% if current_user.admin? %>
+          <%= link_to "Painel Admin", panel_root_path, class: "text-gray-700 hover:text-blue-700 font-medium transition-colors" %>
+        <% end %>
         <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "text-gray-700 hover:text-red-600 font-medium transition-colors" %>
       <% else %>
         <%= link_to "Login", new_user_session_path, class: "text-gray-700 hover:text-blue-700 font-medium transition-colors" %>

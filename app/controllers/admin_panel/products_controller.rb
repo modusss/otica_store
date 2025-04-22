@@ -1,4 +1,4 @@
-class AdminPanel::ProductsController < Admin::BaseController
+class AdminPanel::ProductsController < AdminPanel::BaseController
   before_action :set_product, only: %i[edit update destroy]
 
   def index

@@ -1,4 +1,4 @@
-class AdminPanel::DashboardController < Admin::BaseController
+class AdminPanel::DashboardController < AdminPanel::BaseController
   layout 'admin'
 
   def index

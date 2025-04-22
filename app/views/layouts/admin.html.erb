@@ -1,18 +1,19 @@
 <!doctype html>
 <html>
   <head>
-    <title>Admin – Ótica</title>
+    <title>Admin – Ótica</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>    
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
   <body class="min-h-screen flex">
     <aside class="w-48 bg-gray-100 p-4">
       <h2 class="font-bold mb-4">Admin</h2>
-      <%= link_to "Dashboard", admin_root_path, class: "block mb-2" %>
-      <%= link_to "Produtos",  admin_products_path, class: "block mb-2" %>
-      <%= link_to "Pedidos",   admin_orders_path,   class: "block mb-2" %>
+      <%= link_to "Dashboard", panel_root_path, class: "block mb-2" %>
+      <%= link_to "Produtos",  panel_products_path, class: "block mb-2" %>
+      <%= link_to "Pedidos",   panel_orders_path,   class: "block mb-2" %>
     </aside>
 
     <main class="flex-1 p-6">
