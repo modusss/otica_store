@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :webhooks do
+    post :stripe,     to: "stripe#create"
+    post :pagseguro,  to: "pagseguro#create"
+  end
   resource  :profile,  only: :show
   resources :addresses, except: :show
   resources :orders, only: %i[index show]
