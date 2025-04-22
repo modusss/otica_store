@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_182029) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_203810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -192,6 +192,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_182029) do
     t.integer "pack_quantity"
     t.boolean "active", default: true, null: false
     t.bigint "brand_id"
+    t.integer "stock", default: 0, null: false
     t.index ["active", "price"], name: "index_products_on_active_and_price"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["lens_type"], name: "index_products_on_lens_type"
