@@ -12,7 +12,7 @@ class Product < ApplicationRecord
 
     # Adiciona associações para brand, variants e categorias
     belongs_to :brand, optional: true
-    has_many :product_variants
-    has_many :categorizations
+    has_many :product_variants, dependent: :destroy
+    has_many :categorizations, dependent: :destroy
     has_many :categories, through: :categorizations
 end
