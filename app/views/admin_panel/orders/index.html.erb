@@ -1,0 +1,36 @@
+<div class="bg-white rounded-lg shadow">
+  <div class="px-4 py-5 sm:p-6">
+    <h1 class="text-2xl font-bold mb-6">Pedidos</h1>
+    
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+          <th class="px-6 py-3"></th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @orders.each do |order| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">#<%= order.id %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= order.user.email %></td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                <%= order.status %>
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= number_to_currency(order.total) %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= l order.created_at, format: :short %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <%= link_to "Ver", panel_order_path(order), class: "text-blue-600 hover:text-blue-900" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div> 
