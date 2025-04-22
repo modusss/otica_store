@@ -10,28 +10,32 @@ class AdminPanel::ProductsController < AdminPanel::BaseController
     @product.product_variants.build
   end
 
+  def edit
+    @product.product_variants.build if @product.product_variants.empty?
+  end
+
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to admin_products_path, notice: "Produto criado."
+      redirect_to panel_products_path, notice: "Produto criado."
     else
+      @product.product_variants.build if @product.product_variants.empty?
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit; end
-
   def update
     if @product.update(product_params)
-      redirect_to admin_products_path, notice: "Atualizado."
+      redirect_to panel_products_path, notice: "Atualizado."
     else
+      @product.product_variants.build if @product.product_variants.empty?
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @product.destroy
-    redirect_to admin_products_path, notice: "Removido."
+    redirect_to panel_products_path, notice: "Removido."
   end
 
   private
