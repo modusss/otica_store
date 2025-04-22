@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_151736) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_152235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -74,24 +74,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_151736) do
 
   create_table "line_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
-    t.bigint "product_id", null: false
     t.integer "quantity", default: 1
     t.decimal "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_variant_id", null: false
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
-    t.index ["product_id"], name: "index_line_items_on_product_id"
+    t.index ["product_variant_id"], name: "index_line_items_on_product_variant_id"
   end
 
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
     t.integer "quantity", default: 1
     t.decimal "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_variant_id", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
+    t.index ["product_variant_id"], name: "index_order_items_on_product_variant_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -200,9 +200,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_151736) do
   add_foreign_key "categorizations", "categories"
   add_foreign_key "categorizations", "products"
   add_foreign_key "line_items", "carts"
-  add_foreign_key "line_items", "products"
+  add_foreign_key "line_items", "product_variants"
   add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
+  add_foreign_key "order_items", "product_variants"
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "orders"
   add_foreign_key "product_variants", "products"
