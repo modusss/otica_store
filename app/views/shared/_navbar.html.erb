@@ -1,15 +1,4 @@
-<!-- Navbar premium e responsiva -->
-<nav class="bg-white shadow-md fixed w-full z-10 top-0 left-0">
-  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="/" class="text-2xl font-bold text-blue-700">Ótica Store</a>
-    <div class="flex space-x-6">
-      <%= link_to "Produtos", products_path, class: "text-gray-700 hover:text-blue-700 font-medium" %>
-      <%= link_to "Carrinho", cart_path(current_user&.cart), class: "text-gray-700 hover:text-blue-700 font-medium" if user_signed_in? %>
-      <% if user_signed_in? %>
-        <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "text-gray-700 hover:text-blue-700 font-medium" %>
-      <% else %>
-        <%= link_to "Entrar", new_user_session_path, class: "text-gray-700 hover:text-blue-700 font-medium" %>
-      <% end %>
-    </div>
-  </div>
-</nav> 
+<nav class="flex items-center justify-between p-4 bg-gray-100">
+  <%= link_to "Ótica", root_path, class: "font-bold" %>
+  <%= link_to "Carrinho", cart_path %>
+</nav>
