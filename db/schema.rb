@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_153220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -80,7 +80,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
     t.datetime "updated_at", null: false
     t.bigint "product_variant_id", null: false
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
+    t.index ["created_at"], name: "index_line_items_on_created_at"
     t.index ["product_variant_id"], name: "index_line_items_on_product_variant_id"
+    t.check_constraint "quantity > 0", name: "chk_line_items_quantity_pos"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -92,6 +94,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
     t.bigint "product_variant_id", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_variant_id"], name: "index_order_items_on_product_variant_id"
+    t.check_constraint "quantity > 0", name: "chk_order_items_quantity_pos"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -101,7 +104,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "shipping_address_id"
+    t.datetime "placed_at"
+    t.integer "payment_status", default: 0, null: false
     t.index ["shipping_address_id"], name: "index_orders_on_shipping_address_id"
+    t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -135,16 +141,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
     t.jsonb "attribute_set"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["active"], name: "idx_variants_active", where: "active"
     t.index ["product_id", "sphere", "cylinder", "axis", "add_power", "base_curve", "diameter"], name: "idx_variants_lookup"
+    t.index ["product_id", "sphere", "cylinder", "axis", "add_power", "base_curve", "diameter"], name: "idx_variants_unique", unique: true
     t.index ["product_id"], name: "index_product_variants_on_product_id"
     t.index ["sku"], name: "index_product_variants_on_sku", unique: true
+    t.check_constraint "sphere >= '-20'::integer::numeric AND sphere <= 20::numeric", name: "chk_variants_sphere_range"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.decimal "price", precision: 10, scale: 2
-    t.integer "stock", default: 0
     t.string "sku"
     t.string "slug"
     t.datetime "created_at", null: false
@@ -185,7 +193,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "role"
+    t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -197,9 +205,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "categorizations", "categories"
   add_foreign_key "categorizations", "products"
-  add_foreign_key "line_items", "carts"
+  add_foreign_key "line_items", "carts", on_delete: :cascade
   add_foreign_key "line_items", "product_variants"
-  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "orders", on_delete: :cascade
   add_foreign_key "order_items", "product_variants"
   add_foreign_key "orders", "addresses", column: "shipping_address_id"
   add_foreign_key "orders", "users"
