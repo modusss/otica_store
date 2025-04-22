@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders, only: %i[index show]
   namespace :checkout do
     resources :addresses, only: %i[new create]
     resources :payments,  only: %i[new create]
