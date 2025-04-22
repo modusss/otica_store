@@ -11,6 +11,8 @@
   <body class="min-h-screen flex">
     <aside class="w-48 bg-gray-100 p-4">
       <h2 class="font-bold mb-4">Admin</h2>
+      <%= link_to "← Voltar para Loja", root_path, class: "block mb-4 text-blue-600 hover:text-blue-800 text-sm" %>
+      <hr class="mb-4 border-gray-200">
       <%= link_to "Dashboard", panel_root_path, class: "block mb-2" %>
       <%= link_to "Produtos",  panel_products_path, class: "block mb-2" %>
       <%= link_to "Pedidos",   panel_orders_path,   class: "block mb-2" %>
