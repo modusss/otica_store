@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_152235) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_152505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,7 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152235) do
   create_table "line_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.integer "quantity", default: 1
-    t.decimal "unit_price"
+    t.decimal "unit_price", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_variant_id", null: false
@@ -86,7 +86,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152235) do
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.integer "quantity", default: 1
-    t.decimal "unit_price"
+    t.decimal "unit_price", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_variant_id", null: false
@@ -96,14 +96,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152235) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.decimal "total"
+    t.decimal "total", precision: 10, scale: 2
     t.integer "status", default: 0
-    t.string "shipping_address"
-    t.string "shipping_city"
-    t.string "shipping_zip"
-    t.string "shipping_country", default: "Brasil"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "shipping_address_id"
+    t.index ["shipping_address_id"], name: "index_orders_on_shipping_address_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -145,7 +143,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152235) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.decimal "price"
+    t.decimal "price", precision: 10, scale: 2
     t.integer "stock", default: 0
     t.string "sku"
     t.string "slug"
@@ -203,6 +201,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_152235) do
   add_foreign_key "line_items", "product_variants"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "product_variants"
+  add_foreign_key "orders", "addresses", column: "shipping_address_id"
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "orders"
   add_foreign_key "product_variants", "products"
