@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :checkout do
+    resources :addresses, only: %i[new create]
+    resources :payments,  only: %i[new create]
+    resource  :order,     only: %i[show] do
+      get :success
+      get :cancel
+    end
+  end
   resource  :cart,       only: :show          # singular – um carrinho por usuário
   resources :line_items, only: %i[create update destroy]
 

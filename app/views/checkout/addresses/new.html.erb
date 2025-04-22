@@ -1,0 +1,5 @@
+<h1 class="text-xl font-semibold">Endereço de Entrega</h1>
+<%= form_with model: @address, url: checkout_addresses_path do |f| %>
+  <%= f.text_field :street, placeholder: "Rua…" %>
+  <%= f.submit "Continuar", class: "btn-primary" %>
+<% end %>
