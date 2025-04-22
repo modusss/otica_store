@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   namespace :webhooks do
     post :stripe,     to: "stripe#create"
     post :pagseguro,  to: "pagseguro#create"
