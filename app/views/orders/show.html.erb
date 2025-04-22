@@ -1,2 +1,14 @@
-<h1 class="text-xl font-semibold">Pedido #<%= @order.id %></h1>
-<%= render @order.order_items %>
+<h1 class="text-xl font-semibold mb-4">Pedido #<%= @order.id %></h1>
+
+<ul class="divide-y">
+  <% @order.order_items.each do |oi| %>
+    <li class="py-2 flex justify-between">
+      <span><%= oi.product_variant.sku %> × <%= oi.quantity %></span>
+      <span><%= number_to_currency oi.unit_price %></span>
+    </li>
+  <% end %>
+</ul>
+
+<p class="text-right font-bold mt-4">
+  Total: <%= number_to_currency @order.total %>
+</p>

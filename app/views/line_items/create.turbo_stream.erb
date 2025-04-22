@@ -1,2 +1,3 @@
-<%= turbo_stream.replace "mini_cart", partial: "shared/mini_cart", locals: { cart: current_cart } %>
-<%= turbo_stream.replace "cart_items", partial: "carts/items", locals: { cart: current_cart } %>
+<%= turbo_stream.replace "cart_items",
+      partial: "carts/items",
+      locals: { cart: current_cart } %>

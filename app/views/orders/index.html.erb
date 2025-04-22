@@ -1,6 +1,22 @@
-<h1 class="text-xl font-semibold">Meus pedidos</h1>
-<ul>
-  <% @orders.each do |order| %>
-    <li><%= link_to "Pedido ##{order.id}", order_path(order) %></li>
-  <% end %>
-</ul>
+<h1 class="text-xl font-semibold mb-4">Meus pedidos</h1>
+
+<table class="min-w-full border">
+  <thead>
+    <tr class="bg-gray-100">
+      <th class="p-2 text-left">#</th>
+      <th class="p-2 text-left">Data</th>
+      <th class="p-2 text-right">Total</th>
+      <th class="p-2 text-left">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr class="border-t">
+        <td class="p-2"><%= link_to order.id, order_path(order) %></td>
+        <td class="p-2"><%= l order.created_at.to_date %></td>
+        <td class="p-2 text-right"><%= number_to_currency order.total %></td>
+        <td class="p-2"><%= order.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

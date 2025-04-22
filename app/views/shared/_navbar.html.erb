@@ -1,4 +1,13 @@
-<nav class="flex items-center justify-between p-4 bg-gray-100">
-  <%= link_to "Ótica", root_path, class: "font-bold" %>
-  <%= link_to "Carrinho", cart_path %>
+<nav class="flex items-center justify-between bg-gray-100 p-4">
+  <%= link_to "Ótica", root_path, class: "font-bold text-lg" %>
+  <div class="flex gap-4">
+    <%= link_to "Produtos", products_path %>
+    <% if user_signed_in? %>
+      <%= link_to "Meus pedidos", orders_path %>
+      <%= link_to "Sair", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
+    <%= link_to "Carrinho", cart_path, id: "mini_cart" %>
+  </div>
 </nav>

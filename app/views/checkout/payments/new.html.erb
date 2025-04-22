@@ -1,4 +1,8 @@
-<h1 class="text-xl font-semibold">Pagamento</h1>
-<!-- Placeholder Stripe Element -->
-<div id="card-element"></div>
-<%= button_to "Pagar", checkout_payments_path, method: :post %>
+<h1 class="text-xl font-semibold mb-4">Pagamento</h1>
+
+<p>Total a pagar: <strong><%= number_to_currency @order.total %></strong></p>
+
+<%= button_to "Confirmar pagamento (fictício)",
+      checkout_payments_path(address_id: params[:address_id]),
+      method: :post,
+      class: "mt-4 bg-primary text-white px-4 py-2 rounded" %>

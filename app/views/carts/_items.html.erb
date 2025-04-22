@@ -1,8 +1,28 @@
 <% cart.line_items.each do |li| %>
-  <div class="flex justify-between border-b py-2">
-    <span><%= li.product_variant.sku %></span>
-    <span><%= number_to_currency(li.unit_price) %> × <%= li.quantity %></span>
-    <%= button_to "Remover", line_item_path(li), method: :delete, form: { data: { turbo_stream: true } } %>
+  <div id="<%= dom_id(li) %>" class="flex justify-between items-center border-b py-2">
+    <div>
+      <strong><%= li.product_variant.sku %></strong>
+      <span class="ml-2 text-gray-500">x <%= li.quantity %></span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span><%= number_to_currency li.unit_price %></span>
+
+      <%= button_to "−",
+            line_item_path(li),
+            method: :patch,
+            params: { line_item: { quantity: li.quantity - 1 } },
+            form: { data: { turbo_stream: true } },
+            class: "px-2 border rounded" if li.quantity > 1 %>
+
+      <%= button_to "🗑️",
+            line_item_path(li),
+            method: :delete,
+            form: { data: { turbo_stream: true } },
+            class: "px-2 border rounded" %>
+    </div>
   </div>
 <% end %>
-<p class="text-right font-bold mt-4">Total: <%= number_to_currency cart.line_items.sum { _1.unit_price * _1.quantity } %></p>
+
+<p class="text-right font-bold mt-4">
+  Total: <%= number_to_currency cart.line_items.sum { _1.unit_price * _1.quantity } %>
+</p>

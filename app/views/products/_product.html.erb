@@ -1,5 +1,8 @@
-<div class="border p-4 rounded">
-  <h2 class="font-medium"><%= product.name %></h2>
-  <p><%= number_to_currency product.price %></p>
-  <%= link_to "Detalhes", product_path(product), class: "text-primary" %>
-</div>
+<article class="border rounded p-4 flex flex-col">
+  <h2 class="font-medium text-lg mb-2"><%= product.name %></h2>
+  <p class="text-gray-600 grow"><%= truncate(product.description, length: 80) %></p>
+  <p class="mt-2 font-semibold"><%= number_to_currency product.price %></p>
+  <%= link_to "Detalhes",
+              product_path(product),
+              class: "mt-3 inline-block bg-primary text-white px-3 py-1 rounded" %>
+</article>

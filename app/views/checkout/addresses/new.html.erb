@@ -1,5 +1,14 @@
-<h1 class="text-xl font-semibold">Endereço de Entrega</h1>
+<h1 class="text-xl font-semibold mb-4">Endereço de entrega</h1>
+
 <%= form_with model: @address, url: checkout_addresses_path do |f| %>
-  <%= f.text_field :street, placeholder: "Rua…" %>
-  <%= f.submit "Continuar", class: "btn-primary" %>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <%= f.text_field :name,  placeholder: "Destinatário", class: "border rounded p-2" %>
+    <%= f.text_field :street, placeholder: "Rua e número", class: "border rounded p-2" %>
+    <%= f.text_field :city,   placeholder: "Cidade", class: "border rounded p-2" %>
+    <%= f.text_field :state,  placeholder: "Estado", class: "border rounded p-2" %>
+    <%= f.text_field :zip,    placeholder: "CEP", class: "border rounded p-2" %>
+  </div>
+
+  <%= f.submit "Continuar",
+        class: "mt-4 bg-primary text-white px-4 py-2 rounded" %>
 <% end %>
