@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource  :cart,       only: :show          # singular – um carrinho por usuário
+  resources :line_items, only: %i[create update destroy]
 
   root "pages#home"
 
